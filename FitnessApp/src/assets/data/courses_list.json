@@ -1,0 +1,232 @@
+{
+  "courses": [
+    {
+      "id": "course1",
+      "name": "Beginner Yoga",
+      "totalPoses": 5,
+      "totalDuration": "25 minutes",
+      "image": "https://t4.ftcdn.net/jpg/03/64/05/57/360_F_364055747_jzJEWq4Qn54oS6aOfLxZbRPkY4sreYKD.jpg",
+      "difficulty": "Beginner",
+      "totalLikes": 150,
+      "courseType": "Yoga",
+      "focusArea": "Flexibility, Balance",
+      "exercises": [
+        {
+          "id": "exercise1",
+          "name": "Sun Salutation",
+          "duration": "5 minutes",
+          "imageUrl": "https://images.squarespace-cdn.com/content/v1/6036da40e5934b79b3bc842c/1632341830694-DPSQ77ZFJT71318XWR0P/Sun+Salutation+dreamstime_s_19987380.jpg"
+        },
+        {
+          "id": "exercise2",
+          "name": "Downward Dog",
+          "duration": "4 minutes",
+          "imageUrl": "https://www.ekhartyoga.com/media/images/articles/content/Downward-Facing-Dog-Pose-Adho-Mukha-Svanasana.jpg"
+        },
+        {
+          "id": "exercise3",
+          "name": "Warrior Pose",
+          "duration": "5 minutes",
+          "imageUrl": "https://www.ekhartyoga.com/media/images/articles/content/Warrior-2-yoga-pose-Virabhadrasana-II-Ekhart-Yoga.jpg"
+        },
+        {
+          "id": "exercise4",
+          "name": "Tree Pose",
+          "duration": "6 minutes",
+          "imageUrl": "https://www.ekhartyoga.com/media/images/articles/content/Tree-pose-Vrksasana-Ekhart-Yoga.jpg"
+        },
+        {
+          "id": "exercise5",
+          "name": "Seated Forward Bend",
+          "duration": "5 minutes",
+          "imageUrl": "data:image/jpeg;base64,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"
+        }
+      ]
+    },
+    {
+      "id": "course2",
+      "name": "Advanced Cardio",
+      "totalPoses": 5,
+      "totalDuration": "20 minutes",
+      "image": "https://as2.ftcdn.net/v2/jpg/02/44/67/07/1000_F_244670778_ApmozULPeQnhAkEoou0pizwjPP4t80P8.jpg",
+      "difficulty": "Advanced",
+      "totalLikes": 250,
+      "courseType": "Cardio",
+      "focusArea": "Endurance, Full Body",
+      "exercises": [
+        {
+          "id": "exercise1",
+          "name": "High Knees",
+          "duration": "4 minutes",
+          "imageUrl": "https://media1.popsugar-assets.com/files/thumbor/OuJr7h2M2666zRJ-coAQwHZ__CU=/fit-in/2048x1152/top/filters:format_auto():extract_cover():upscale()/2019/02/26/720/n/1922729/d854612336a99151_2.JPG"
+        },
+        {
+          "id": "exercise2",
+          "name": "Burpees",
+          "duration": "4 minutes",
+          "imageUrl": "https://www.dmoose.com/cdn/shop/articles/1_a28bcd53-d1f0-444b-988f-2d7002074905.jpg?v=1653403060"
+        },
+        {
+          "id": "exercise3",
+          "name": "Mountain Climbers",
+          "duration": "4 minutes",
+          "imageUrl": "https://www.verywellfit.com/thmb/3wKoBgXEVpqfv4LrK_QqSWqWHfE=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/3-MountainClimb-56fafe605f9b5829867945c0.jpg"
+        },
+        {
+          "id": "exercise4",
+          "name": "Jump Squats",
+          "duration": "4 minutes",
+          "imageUrl": "https://personaltrainingmequon.com/wp-content/uploads/2019/04/Jump-Squats.jpg"
+        },
+        {
+          "id": "exercise5",
+          "name": "Lateral Jumps",
+          "duration": "4 minutes",
+          "imageUrl": "https://hips.hearstapps.com/hmg-prod/images/lateraljumps-1484924896.jpg"
+        }
+      ]
+    },
+    {
+      "id": "course3",
+      "name": "Strength Training",
+      "totalPoses": 5,
+      "totalDuration": "37 minutes",
+      "image": "https://cdn.mos.cms.futurecdn.net/6Sgm2PShCK3Rphg4hkXGGh.jpg",
+      "difficulty": "Intermediate",
+      "totalLikes": 200,
+      "courseType": "Strength",
+      "focusArea": "Muscle Building, Full Body",
+      "exercises": [
+        {
+          "id": "exercise1",
+          "name": "Push-Ups",
+          "duration": "7 minutes",
+          "imageUrl": "data:image/jpeg;base64,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"
+        },
+        {
+          "id": "exercise2",
+          "name": "Planks",
+          "duration": "8 minutes",
+          "imageUrl": "data:image/jpeg;base64,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"
+        },
+        {
+          "id": "exercise3",
+          "name": "Dumbbell Rows",
+          "duration": "7 minutes",
+          "imageUrl": "https://www.dmoose.com/cdn/shop/articles/MicrosoftTeams-image_2_90411cba-7995-4fac-8f20-af7caa6406a0.jpg?v=1652281904"
+        },
+        {
+          "id": "exercise4",
+          "name": "Squats",
+          "duration": "8 minutes",
+          "imageUrl": "https://images.ctfassets.net/hjcv6wdwxsdz/KT4PpNyA0f5BM0u9o6oPH/8bf552d8c327f777e7d9cb28904e7615/squats-claudia-hold.png?w=1200"
+        },
+        {
+          "id": "exercise5",
+          "name": "Deadlifts",
+          "duration": "7 minutes",
+          "imageUrl": "https://i.ytimg.com/vi/1ZXobu7JvvE/maxresdefault.jpg"
+        }
+      ]
+    },
+    {
+      "id": "course4",
+      "name": "Pilates Basics",
+      "totalPoses": 3,
+      "totalDuration": "15 minutes",
+      "image": "https://dlaqljgi7pm30.cloudfront.net/images/82g1ljahg587/ytrtlyuyiee8/Crunch_infront_of_Concrete_wall.jpg?v=20220802073119",
+      "difficulty": "Beginner",
+      "totalLikes": 120,
+      "courseType": "Pilates",
+      "focusArea": "Core Strength, Flexibility",
+      "exercises": [
+        {
+          "id": "exercise1",
+          "name": "The Hundred",
+          "duration": "5 minutes",
+          "imageUrl": "https://www.verywellfit.com/thmb/clH_zlJ6XwoB6NkTFkV_ZIa8tRw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Verywell-07-2704611-Hundred01-418copy-5c631793c9e77c00016627af.jpg"
+        },
+        {
+          "id": "exercise2",
+          "name": "Roll Up",
+          "duration": "5 minutes",
+          "imageUrl": "https://media1.popsugar-assets.com/files/thumbor/lrchhSZPv5lTJyj2AssrdorwOW4=/fit-in/728x728/filters:format_auto():upscale()/2016/03/08/711/n/1922398/afac9aff08108b99_Straight-Leg-Roll-Up.jpg"
+        },
+        {
+          "id": "exercise3",
+          "name": "Leg Circles",
+          "duration": "5 minutes",
+          "imageUrl": "https://blog.healthadvocate.com/wp-content/uploads/2014/08/Leg-Circles.jpg"
+        }
+      ]
+    },
+    {
+      "id": "course5",
+      "name": "Kickboxing Fundamentals",
+      "totalPoses": 4,
+      "totalDuration": "20 minutes",
+      "image": "https://media.istockphoto.com/id/1126503889/photo/dedicated-strong-brunette-with-ponytail-in-sportswear-bare-foot-and-with-boxing-gloves.jpg?s=612x612&w=0&k=20&c=53QxwgTkqkrbYwxKXL05zSib-QgtbOWLExLuvuydMCE=",
+      "difficulty": "Intermediate",
+      "totalLikes": 180,
+      "courseType": "Kickboxing",
+      "focusArea": "Cardio, Agility",
+      "exercises": [
+        {
+          "id": "exercise1",
+          "name": "Jab Cross",
+          "duration": "5 minutes",
+          "imageUrl": "https://i.ytimg.com/vi/7S-FSrHUN1A/maxresdefault.jpg"
+        },
+        {
+          "id": "exercise2",
+          "name": "Front Kick",
+          "duration": "5 minutes",
+          "imageUrl": "https://gethealthyu.com/wp-content/uploads/2014/12/Front-Kicks_Exercise.jpg"
+        },
+        {
+          "id": "exercise3",
+          "name": "Roundhouse Kick",
+          "duration": "5 minutes",
+          "imageUrl": "https://dawnastone.com/wp-content/uploads/2014/01/Side-Kick-Squats_labeled-copy.jpg"
+        },
+        {
+          "id": "exercise4",
+          "name": "Hook Punch",
+          "duration": "5 minutes",
+          "imageUrl": "https://s3assets.skimble.com/assets/51185/skimble-workout-trainer-exercise-right-hooks-3_iphone.jpg"
+        }
+      ]
+    },
+    {
+      "id": "course6",
+      "name": "Meditation and Mindfulness",
+      "totalPoses": 3,
+      "totalDuration": "30 minutes",
+      "image": "data:image/jpeg;base64,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",
+      "difficulty": "Beginner",
+      "totalLikes": 300,
+      "courseType": "Mindfulness",
+      "focusArea": "Mental Health, Stress Relief",
+      "exercises": [
+        {
+          "id": "exercise1",
+          "name": "Breathing Awareness",
+          "duration": "10 minutes",
+          "imageUrl": "https://originalbodywisdom.com/wp-content/uploads/2022/12/madison-lavern-4gcqRf3-f2I-unsplash.jpg"
+        },
+        {
+          "id": "exercise2",
+          "name": "Body Scan Meditation",
+          "duration": "10 minutes",
+          "imageUrl": "https://i0.wp.com/post.healthline.com/wp-content/uploads/2020/03/Female_Yoga_Mat_Laying_Down_1296x728-header.jpg?w=1155&h=1528"
+        },
+        {
+          "id": "exercise3",
+          "name": "https://images.everydayhealth.com/images/healthy-living/fitness/walking-workouts-myths-and-facts-1440x810.jpg?sfvrsn=9caa86b_1",
+          "duration": "10 minutes",
+          "imageUrl": "url_to_walking_meditation_video.mp4"
+        }
+      ]
+    }
+  ]
+}
