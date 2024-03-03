@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import YoutubePlayer from 'react-native-youtube-iframe';
 
 const Exercises = () => {
   const [playing, setPlaying] = useState(false);
@@ -18,7 +17,7 @@ const Exercises = () => {
         <Text style={styles.exerciseDetail}>{item.duration}</Text>
       </View>
       <TouchableOpacity style={styles.likeButton}>
-        <Icon name="heart-o" size={24} color="#900" />
+        <Icon name="heart-o" size={16} color="black" />
       </TouchableOpacity>
     </View>
   );
