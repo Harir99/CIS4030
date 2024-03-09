@@ -1,4 +1,4 @@
-package com.fitnessapp
+package com.recipe_app
 
 import android.app.Application
 import com.facebook.react.PackageList

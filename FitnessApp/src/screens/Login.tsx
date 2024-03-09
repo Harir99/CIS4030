@@ -1,21 +1,18 @@
 import React, {useState} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image, ImageBackground} from 'react-native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
+import Courses from './Courses';
+import Register from './Register';
+import HelpScreen from './HelpScreen'
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleLogin = () => {
-    // navigate to courses page
-  }
 
-  const handleHelp = () => {
-    // navigate to help page
-  }
-
-  const handleNav = () => {
-    // navigate to register page
-  }
+   const navigateToScreen = (screenName, params) => {
+      navigation.navigate(screenName, params);
+   };
 
   return (
     <View style={styles.Container}>
@@ -54,22 +51,22 @@ const Login = () => {
         <View style={styles.InputContainer}>
           <TouchableOpacity 
             style={styles.LoginButton}
-            onPress={handleLogin}
+            onPress={()=> navigateToScreen('Courses')}
           >
-            <Text>Login</Text>
+            <Text style={{ color:'black' }}>Login</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={handleHelp}
+            onPress={()=> navigateToScreen('HelpScreen')}
           >
-            <Text>Need Help?</Text>
+            <Text style={{ color:'black' }}>Need Help?</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.RegisterContainer}>
-          <Text>New? </Text>
+          <Text style={{ color:'black' }}>New? </Text>
           <TouchableOpacity
-            onPress={handleNav}
+            onPress={()=> navigateToScreen('Register')}
           >
-            <Text>Register</Text>
+            <Text style={{ color:'black' }}>Register</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -99,12 +96,14 @@ const styles = StyleSheet.create({
     fontSize: 40,
     padding: 10,
     paddingHorizontal: 40,
+    color: 'black',
   },
   Header: {
     fontWeight: 'bold',
     fontSize: 20,
     padding: 10,
     paddingHorizontal: 40,
+    color: 'black',
   },
   LoginForm: {
     gap: 10,
@@ -142,12 +141,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightblue',
     padding: 10,
     paddingHorizontal: 30,
-    borderRadius: 30
+    borderRadius: 30,
   },
   ImageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20
+    padding:20
   },
   BackgroundImage: {
     width: 400,

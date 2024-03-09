@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { View, Text, ImageBackground, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card } from 'react-native-elements';
 import data from '../assets/data/courses_list.json';
+
 import FiltersUI from "../components/FiltersUI"
 
-// import Icon from 'react-native-vector-icons/FontAwesome';
-const Courses = () => {
+const Courses = ({ navigation }) => {
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate('Exercises', { course: item,  name: item.name })}>
       <Card containerStyle={styles.cardContainer}>
         <ImageBackground source={{ uri: item.image }} style={styles.image}>
           <View style={styles.overlay}>
@@ -16,13 +16,6 @@ const Courses = () => {
             <View style={styles.topRow}>
              <Text style={styles.mainHeading}>{item.name}</Text>
               <Text style={styles.subHeading}>{item.totalDuration}</Text>
-               {/*<TouchableOpacity onPress={() => handleToggleLike(item)}>
-                <Icon
-                  name={likedItems.includes(item) ? 'heart' : 'heart-o'}
-                  size={15}
-                  style={styles.heartIcon}
-                />
-              </TouchableOpacity>*/}
             </View>
             <View style={styles.iconRow}>
               <View style={styles.iconContainer}>
@@ -36,6 +29,7 @@ const Courses = () => {
       </Card>
     </TouchableOpacity>
   );
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -45,7 +39,7 @@ const Courses = () => {
         numColumns={2}
          ListHeaderComponent={() => (
           <View style={styles.header}>
-            <Text style={styles.headerTitle}>Courses</Text>
+
             <FiltersUI />
           </View>
         )}
@@ -59,20 +53,20 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    paddingVertical: 16, // Adjust the padding as needed
+    paddingVertical: 16,
     paddingHorizontal: 20,
     marginBottom: 3,
   },
   headerTitle: {
-    color: '#221500', // Here's your heading color
-    fontSize: 27, // Adjust the font size as needed
+    color: '#221500',
+    fontSize: 27,
     fontWeight: 'bold',
     textAlign: 'left',
     marginBottom: 8,
     marginTop: 10
   },
   TagButton: {
-    backgroundColor: '#221500', // Example background color for filter buttons
+    backgroundColor: '#221500',
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 20,
@@ -141,4 +135,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Courses;
+export default function(props) {
+  const { navigation } = props;
+  return <Courses navigation={navigation} />;
+}

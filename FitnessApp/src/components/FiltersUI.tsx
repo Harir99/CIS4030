@@ -68,7 +68,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
     padding: 8,
     borderRadius: 5,
-    marginTop: 5
+    marginTop: 5,
+   borderColor: '#221500', // Example background color for filter buttons
+   borderWidth: 1,
   },
   optionButtonText: {
     color: '#333',

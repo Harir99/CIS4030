@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const Exercises = () => {
+const Exercises = ({ route }) => {
   const [playing, setPlaying] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const togglePlaying = (id) => {
     setSelectedId(selectedId === id ? null : id); // Toggle play state based on exercise ID
   };
-
+ const { course } = route.params;
   const renderExerciseItem = ({ item }) => (
     <View style={styles.itemContainer}>
       <Image source={{ uri: item.imageUrl }} style={styles.exerciseImage}/>
@@ -24,15 +24,15 @@ const Exercises = () => {
 
   return (
     <View style={styles.container}>
-      <Image source={{ uri: courseData.image }} style={styles.headerImage} />
+      <Image source={{ uri: course.image }} style={styles.headerImage} />
       <View style={styles.courseDetailsContainer}>
-        <Text style={styles.headerTitle}>{courseData.name}</Text>
-        <Text style={styles.courseDetailText}>Difficulty: {courseData.difficulty}</Text>
-        <Text style={styles.courseDetailText}>{courseData.totalPoses} Poses | {courseData.totalDuration}</Text>
+        <Text style={styles.headerTitle}>{course.name}</Text>
+        <Text style={styles.courseDetailText}>Difficulty: {course.difficulty}</Text>
+        <Text style={styles.courseDetailText}>{course.totalPoses} Poses | {course.totalDuration}</Text>
         <Text style={styles.sectionTitle}>Exercises</Text>
       </View>
       <FlatList
-        data={courseData.exercises}
+        data={course.exercises}
         renderItem={renderExerciseItem}
         keyExtractor={(item) => item.id}
       />
