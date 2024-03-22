@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, ImageBackground, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card } from 'react-native-elements';
 import data from '../assets/data/courses_list.json';
@@ -6,6 +6,31 @@ import data from '../assets/data/courses_list.json';
 import FiltersUI from "../components/FiltersUI"
 
 const Courses = ({ navigation }) => {
+
+  const [selectedDifficulty, setSelectedDifficulty] = useState(null);
+  const [selectedDuration, setSelectedDuration] = useState(null);
+  const [selectedCourseType, setSelectedCourseType] = useState(null);
+  const [selectedFocusArea, setSelectedFocusArea] = useState(null);
+  const [filteredData, setFilteredData] = useState(data.courses);
+
+    useEffect(() => {
+        const filterCourses = () => {
+          return data.courses.filter(course => {
+            const duration = parseInt(course.totalDuration.split(' ')[0], 10);
+            return (
+              (!selectedDifficulty || course.difficulty === selectedDifficulty) &&
+              (!selectedDuration ||
+                (selectedDuration === 'Short (0-15 minutes)' && duration <= 15) ||
+                (selectedDuration === 'Medium (16-30 minutes)' && duration > 15 && duration <= 30) ||
+                (selectedDuration === 'Long (31 minutes and above)' && duration > 30)) &&
+              (!selectedCourseType || course.courseType === selectedCourseType) &&
+              (!selectedFocusArea || course.focusArea.includes(selectedFocusArea))
+            );
+          });
+        };
+
+        setFilteredData(filterCourses());
+  }, [selectedDifficulty, selectedDuration, selectedCourseType, selectedFocusArea]);
 
   const renderItem = ({ item }) => (
     <TouchableOpacity onPress={() => navigation.navigate('Exercises', { course: item,  name: item.name })}>
@@ -33,14 +58,18 @@ const Courses = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={data.courses}
+        data={filteredData}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         numColumns={2}
-         ListHeaderComponent={() => (
+        ListHeaderComponent={() => (
           <View style={styles.header}>
-
-            <FiltersUI />
+             <FiltersUI
+               onSelectDifficulty={setSelectedDifficulty}
+               onSelectDuration={setSelectedDuration}
+               onSelectCourseType={setSelectedCourseType}
+               onSelectFocusArea={setSelectedFocusArea}
+             />
           </View>
         )}
       />
