@@ -1,12 +1,34 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+const OptionButton = ({ option, onSelect, isSelected }) => {
+
+  const handleSelectOption = () => {
+    onSelect(isSelected ? null : option);
+  };
+
+  return (
+    <TouchableOpacity
+      style={[
+        styles.optionButton,
+        isSelected ? styles.selectedOptionButton : null,
+      ]}
+      onPress={handleSelectOption}
+    >
+      <Text
+        style={[
+          styles.optionButtonText,
+          isSelected ? styles.selectedOptionText : null,
+        ]}
+      >
+        {option}
+      </Text>
+    </TouchableOpacity>
+  );
+};
 
 const CollapsibleFilterSection = ({ title, options, onSelect, selectedOption }) => {
   const [isVisible, setIsVisible] = React.useState(false);
-
-  const handleSelectOption = (option) => {
-    onSelect(selectedOption === option ? null : option);
-  };
 
   return (
     <View style={styles.collapsibleContainer}>
@@ -19,23 +41,12 @@ const CollapsibleFilterSection = ({ title, options, onSelect, selectedOption }) 
       {isVisible && (
         <View style={styles.collapsibleContent}>
           {options.map((option, index) => (
-            <TouchableOpacity
+            <OptionButton
               key={index}
-              style={[
-                styles.optionButton,
-                selectedOption === option && styles.selectedOptionButton,
-              ]}
-              onPress={() => handleSelectOption(option)}
-            >
-              <Text
-                style={[
-                  styles.optionButtonText,
-                  selectedOption === option && styles.selectedOptionText,
-                ]}
-              >
-                {option}
-              </Text>
-            </TouchableOpacity>
+              option={option}
+              onSelect={onSelect}
+              isSelected={selectedOption === option}
+            />
           ))}
         </View>
       )}
@@ -54,46 +65,68 @@ const FiltersUI = ({
   const [selectedCourseType, setSelectedCourseType] = React.useState(null);
   const [selectedFocusArea, setSelectedFocusArea] = React.useState(null);
 
+  const clearAllFilters = () => {
+    setSelectedDifficulty(null);
+    setSelectedDuration(null);
+    setSelectedCourseType(null);
+    setSelectedFocusArea(null);
+    onSelectDifficulty(null);
+    onSelectDuration(null);
+    onSelectCourseType(null);
+    onSelectFocusArea(null);
+  };
+
   return (
-    <View style={styles.filterContainer}>
-      <CollapsibleFilterSection
-        title="Difficulty"
-        options={['Beginner', 'Intermediate', 'Advanced']}
-        onSelect={(option) => {
-          setSelectedDifficulty(option);
-          onSelectDifficulty(option);
-          console.log("Difficulty selected:", option);
-        }}
-        selectedOption={selectedDifficulty}
-      />
-      <CollapsibleFilterSection
-        title="Duration"
-        options={['Short (0-15 minutes)', 'Medium (16-30 minutes)', 'Long (31 minutes and above)']}
-        onSelect={(option) => {
-          setSelectedDuration(option);
-          onSelectDuration(option);
-        console.log("Duration selected:", option);
-        }}
-        selectedOption={selectedDuration}
-      />
-      <CollapsibleFilterSection
-        title="Course Type"
-        options={['Yoga', 'Cardio', 'Strength Training', 'Pilates', 'Kickboxing', 'Meditation & Mindfulness']}
-        onSelect={(option) => {
-          setSelectedCourseType(option);
-          onSelectCourseType(option);
-        }}
-        selectedOption={selectedCourseType}
-      />
-      <CollapsibleFilterSection
-        title="Focus Area"
-        options={['Full Body', 'Upper Body', 'Lower Body', 'Core', 'Flexibility', 'Balance']}
-        onSelect={(option) => {
-          setSelectedFocusArea(option);
-          onSelectFocusArea(option);
-        }}
-        selectedOption={selectedFocusArea}
-      />
+    <View>
+      <View style={styles.filterContainer}>
+        <CollapsibleFilterSection
+          title="Difficulty"
+          options={['Beginner', 'Intermediate', 'Advanced']}
+          onSelect={(option) => {
+            setSelectedDifficulty(option);
+            onSelectDifficulty(option);
+          }}
+          selectedOption={selectedDifficulty}
+        />
+        <CollapsibleFilterSection
+          title="Duration"
+          options={['Short (0-15 minutes)', 'Medium (16-30 minutes)', 'Long (31 minutes and above)']}
+          onSelect={(option) => {
+            setSelectedDuration(option);
+            onSelectDuration(option);
+          }}
+          selectedOption={selectedDuration}
+        />
+        <CollapsibleFilterSection
+          title="Course Type"
+          options={['Yoga', 'Cardio', 'Strength Training', 'Pilates', 'Kickboxing', 'Meditation & Mindfulness']}
+          onSelect={(option) => {
+            setSelectedCourseType(option);
+            onSelectCourseType(option);
+          }}
+          selectedOption={selectedCourseType}
+        />
+        <CollapsibleFilterSection
+          title="Focus Area"
+          options={['Full Body', 'Upper Body', 'Lower Body', 'Core', 'Flexibility', 'Balance']}
+          onSelect={(option) => {
+            setSelectedFocusArea(option);
+            onSelectFocusArea(option);
+          }}
+          selectedOption={selectedFocusArea}
+        />
+      </View>
+      <View style={styles.selectedFiltersContainer}>
+        <Text style={{ marginRight: 10 }}>Selected Filters:</Text>
+         <TouchableOpacity onPress={clearAllFilters} style={styles.clearButton}>
+             <Icon name="filter-remove-outline" size={20} color="#221500" />
+         </TouchableOpacity>
+
+        {selectedDifficulty && <Text style={styles.selectedFilter}>{selectedDifficulty}</Text>}
+        {selectedDuration && <Text style={styles.selectedFilter}>{selectedDuration}</Text>}
+        {selectedCourseType && <Text style={styles.selectedFilter}>{selectedCourseType}</Text>}
+        {selectedFocusArea && <Text style={styles.selectedFilter}>{selectedFocusArea}</Text>}
+      </View>
     </View>
   );
 };
@@ -139,13 +172,18 @@ const styles = StyleSheet.create({
     color: '#221500',
     fontSize: 13,
   },
-   selectedFiltersContainer: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      justifyContent: 'flex-start',
-      marginBottom: 20,
-    },
-
+  selectedFiltersContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start',
+    marginBottom: 20,
+  },
+  selectedFilter: {
+    backgroundColor: '#c0c0c0',
+    padding: 5,
+    borderRadius: 10,
+    margin: 5,
+  },
 });
 
 export default FiltersUI;
