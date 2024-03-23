@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button, View, Text, Image, StyleSheet, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import CountdownTimer from './CountdownTimer';
 import { useNavigation } from '@react-navigation/native';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -10,7 +9,7 @@ const Exercises = ({ likedItems, handleToggleLike, route, navigation }) => {
     const { course } = route.params;
 
     const handleStartExercise = (exercise) => {
-      navigation.navigate('ExerciseTimer', { duration: calculateDurationInSeconds(exercise.duration) });
+      navigation.navigate('ExerciseTimer', { duration: exercise.duration });
     };
       const handleCompleteExercise = (exercise) => {
         // Check if the exercise is already completed
@@ -32,11 +31,6 @@ const Exercises = ({ likedItems, handleToggleLike, route, navigation }) => {
         }
       };
 
-    const calculateDurationInSeconds = (duration) => {
-        const [minutes, seconds] = duration.split(':').map(Number);
-        return minutes * 60 + seconds;
-    };
-
   const renderExerciseItem = ({ item }) => (
     <TouchableOpacity style={styles.itemContainer} onPress={() => handleStartExercise(item)}>
       <Image source={{ uri: item.imageUrl }} style={styles.exerciseImage}/>
@@ -56,12 +50,6 @@ const Exercises = ({ likedItems, handleToggleLike, route, navigation }) => {
       </View>
     </TouchableOpacity>
   );
-
-  // Calculate duration in seconds for each exercise
-  const exercisesWithDurationInSeconds = course.exercises.map(exercise => ({
-    ...exercise,
-    durationInSeconds: calculateDurationInSeconds(exercise.duration)
-  }));
 
   return (
     <View style={styles.container}>

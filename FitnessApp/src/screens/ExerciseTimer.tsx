@@ -1,34 +1,43 @@
-// ExerciseTimer.js
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-const ExerciseTimer = ({ route, navigation }) => {
-  const { duration } = route.params;
-  const [timeLeft, setTimeLeft] = useState(duration);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(prevTimeLeft => prevTimeLeft - 1);
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
+const ExerciseTimer = ({ route }) => {
+  const durationString = route.params.duration;
+  const durationInMinutes = parseInt(durationString);
+  const [totalSeconds, setTotalSeconds] = useState(durationInMinutes * 60);
+  const navigation = useNavigation();
 
   useEffect(() => {
-    if (timeLeft === 0) {
+    const intervalId = totalSeconds > 0 ? setInterval(() => {
+      setTotalSeconds(prevTotalSeconds => prevTotalSeconds - 1);
+    }, 1000) : null;
+
+    return () => intervalId && clearInterval(intervalId);
+  }, [totalSeconds]);
+
+  useEffect(() => {
+    if (totalSeconds === 0) {
       navigation.goBack();
     }
-  }, [timeLeft]);
+  }, [totalSeconds, navigation]);
 
-  const formatTime = (time) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-  };
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  const formatNumber = (number) => (`0${number}`).slice(-2);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.timer}>{formatTime(timeLeft)}</Text>
+      <TouchableOpacity style={styles.goBackButton} onPress={() => navigation.goBack()}>
+        <Text style={styles.goBackText}>Go Back</Text>
+      </TouchableOpacity>
+      <View style={styles.timerContainer}>
+        <Text style={styles.timer}>
+          {`${formatNumber(hours)} : ${formatNumber(minutes)} : ${formatNumber(seconds)}`}
+        </Text>
+      </View>
     </View>
   );
 };
@@ -39,8 +48,31 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  timerContainer: {
+    borderWidth: 2,
+    borderColor: '#333',
+    borderRadius: 10,
+    padding: 20,
+  },
   timer: {
-    fontSize: 40,
+    fontSize: 48,
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: 'center',
+  },
+  goBackButton: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+    padding: 10,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 20,
+    zIndex: 1,
+    elevation: 3,
+  },
+  goBackText: {
+    fontSize: 16,
+    color: '#333',
     fontWeight: 'bold',
   },
 });
