@@ -11,14 +11,12 @@ const OptionButton = ({ option, onSelect, isSelected }) => {
     <TouchableOpacity
       style={[
         styles.optionButton,
-        isSelected ? styles.selectedOptionButton : null,
       ]}
       onPress={handleSelectOption}
     >
       <Text
         style={[
           styles.optionButtonText,
-          isSelected ? styles.selectedOptionText : null,
         ]}
       >
         {option}
@@ -117,15 +115,10 @@ const FiltersUI = ({
         />
       </View>
       <View style={styles.selectedFiltersContainer}>
-        <Text style={{ marginRight: 10 }}>Selected Filters:</Text>
+        <Text style={{ marginRight: 10 }}>Clear Filters:</Text>
          <TouchableOpacity onPress={clearAllFilters} style={styles.clearButton}>
              <Icon name="filter-remove-outline" size={20} color="#221500" />
          </TouchableOpacity>
-
-        {selectedDifficulty && <Text style={styles.selectedFilter}>{selectedDifficulty}</Text>}
-        {selectedDuration && <Text style={styles.selectedFilter}>{selectedDuration}</Text>}
-        {selectedCourseType && <Text style={styles.selectedFilter}>{selectedCourseType}</Text>}
-        {selectedFocusArea && <Text style={styles.selectedFilter}>{selectedFocusArea}</Text>}
       </View>
     </View>
   );
