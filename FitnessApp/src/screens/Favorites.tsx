@@ -10,10 +10,6 @@ const Favorites = ({ route }) => {
       {likedItems.length === 0 ? (
         <View style={styles.emptyContainer}>
           <Text style={styles.noFavoritesText}> No Exercises Found! </Text>
-          <Text style={styles.hintText}> Search for Courses </Text>
-          <TouchableOpacity style={styles.browseButton} onPress={() => navigateToScreen('Courses')}>
-            <Text style={styles.browseButtonText}>Browse Courses </Text>
-          </TouchableOpacity>
         </View>
       ) : (
         <FlatList
@@ -37,7 +33,6 @@ const Favorites = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     paddingTop: 20,
     paddingHorizontal: 16,
   },
