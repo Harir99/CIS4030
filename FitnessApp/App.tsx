@@ -10,6 +10,8 @@ import Exercises from './src/screens/Exercises';
 import Login from './src/screens/Login';
 import Register from './src/screens/Register';
 import HelpScreen from './src/screens/HelpScreen'
+import ExerciseTimer from './src/screens/ExerciseTimer'
+import Finished from './src/screens/Finished'
 
 const Stack = createNativeStackNavigator();
 
@@ -57,6 +59,8 @@ const [likedItems, setLikedItems] = useState([]);
           </Stack.Screen>
           <Stack.Screen name="Favorites" component={Favorites} likedItems={likedItems}/>
           <Stack.Screen name="HelpScreen" component={HelpScreen}/>
+          <Stack.Screen name="ExerciseTimer" component={ExerciseTimer} />
+          <Stack.Screen name="Finished" component={Finished} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
