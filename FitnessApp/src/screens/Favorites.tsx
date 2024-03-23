@@ -54,18 +54,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
   },
-  browseButton: {
-    backgroundColor: '#FF6347',
-    padding: 15,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    minWidth: 160,
-  },
-  browseButtonText: {
-    color: '#fff',
-    fontSize: 18,
-  },
   itemContainer: {
     flexDirection: 'row',
     alignItems: 'center',
