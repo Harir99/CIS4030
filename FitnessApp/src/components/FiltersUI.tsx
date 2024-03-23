@@ -115,8 +115,8 @@ const FiltersUI = ({
         />
       </View>
       <View style={styles.selectedFiltersContainer}>
-        <Text style={{ marginRight: 10 }}>Clear Filters:</Text>
-         <TouchableOpacity onPress={clearAllFilters} style={styles.clearButton}>
+        <Text style={styles.clearButtonText}>Clear Filters:</Text>
+         <TouchableOpacity onPress={clearAllFilters} >
              <Icon name="filter-remove-outline" size={20} color="#221500" />
          </TouchableOpacity>
       </View>
@@ -127,8 +127,9 @@ const FiltersUI = ({
 const styles = StyleSheet.create({
   filterContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     marginTop: 9,
+     marginLeft: 10,
   },
   collapsibleContainer: {
     marginBottom: 10,
@@ -176,6 +177,10 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 10,
     margin: 5,
+  },
+  clearButtonText: {
+    color: 'black',
+    marginRight: 10
   },
 });
 
