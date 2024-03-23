@@ -3,7 +3,7 @@ import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 
-const HamburgerMenu = () => {
+const HamburgerMenu = ({likedItems}) => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -27,7 +27,7 @@ const HamburgerMenu = () => {
           <TouchableOpacity onPress={() => navigateToScreen('Courses')}>
             <Text style={styles.menuItem}><Icon name={'list-alt'} size={14} color="black" />     Courses</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigateToScreen('Favorites')}>
+          <TouchableOpacity onPress={() => navigateToScreen('Favorites', {likedItems})}>
             <Text style={styles.menuItem}><Icon name={'heart'} size={14} color="black" />     Favorites </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigateToScreen('Login')}>

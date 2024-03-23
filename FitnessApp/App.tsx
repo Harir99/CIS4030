@@ -15,6 +15,15 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
 
+const [likedItems, setLikedItems] = useState([]);
+
+  const handleToggleLike = (item) => {
+    if (likedItems.includes(item)) {
+      setLikedItems(likedItems.filter((likedItem) => likedItem !== item));
+    } else {
+      setLikedItems([...likedItems, item]);
+    }
+  };
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
@@ -27,6 +36,7 @@ const App = () => {
                 title={getTitle(route)}
                 showBackButton={shouldShowBackButton(route)}
                 navigation={navigation}
+                likedItems={likedItems}
               />
             ),
           }}>
@@ -42,10 +52,10 @@ const App = () => {
           options={{ headerShown: false}}
           />
           <Stack.Screen name="Courses" component={Courses} />
-          <Stack.Screen name="Exercises" component={Exercises}/>
-          {/* {(props) => <Exercises {...props} setTitle={props.route.params.setTitle} />}
-          </Stack.Screen>*/}
-          <Stack.Screen name="Favorites" component={Favorites}/>
+          <Stack.Screen name="Exercises">
+            {(props) => <Exercises {...props} likedItems={likedItems} handleToggleLike={handleToggleLike} />}
+          </Stack.Screen>
+          <Stack.Screen name="Favorites" component={Favorites} likedItems={likedItems}/>
           <Stack.Screen name="HelpScreen" component={HelpScreen}/>
         </Stack.Navigator>
       </NavigationContainer>

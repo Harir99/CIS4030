@@ -3,7 +3,7 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const CustomHeader = ({ title, showBackButton, navigation }) => {
+const CustomHeader = ({ title, showBackButton, navigation, likedItems }) => {
   return (
     <View style={styles.header}>
       {showBackButton ? (
@@ -11,7 +11,7 @@ const CustomHeader = ({ title, showBackButton, navigation }) => {
           <Icon name="arrow-left" size={24} color="black" />
         </TouchableOpacity>
       ) : (
-            <HamburgerMenu />
+            <HamburgerMenu likedItems={likedItems} />
       )}
       <Text style={styles.title}>{title}</Text>
     </View>

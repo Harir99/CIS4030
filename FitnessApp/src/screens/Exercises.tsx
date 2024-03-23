@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const Exercises = ({ route }) => {
+const Exercises = ({ likedItems, handleToggleLike, route }) => {
+
   const [playing, setPlaying] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const togglePlaying = (id) => {
@@ -16,8 +17,8 @@ const Exercises = ({ route }) => {
         <Text style={styles.exerciseName}>{item.name}</Text>
         <Text style={styles.exerciseDetail}>{item.duration}</Text>
       </View>
-      <TouchableOpacity style={styles.likeButton}>
-        <Icon name="heart-o" size={16} color="black" />
+      <TouchableOpacity style={styles.likeButton} onPress={() => handleToggleLike(item)}>
+        <Icon name={likedItems.includes(item) ? 'heart' : 'heart-o'} size={16} color="black" />
       </TouchableOpacity>
     </View>
   );
