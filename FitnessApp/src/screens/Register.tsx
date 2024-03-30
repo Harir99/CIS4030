@@ -1,20 +1,80 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image, ImageBackground} from 'react-native';
 import Courses from './Courses';
 import Login from './Login';
 import HelpScreen from './HelpScreen'
 
-const Register = ({ navigation }) => {
+import {
+  connectToDatabase,
+  createTables,
+  getTableNames,
+  removeTable,
+  addLogin,
+  getLogins,
+  updateLogin,
+  deleteLogin,
+} from '../db/db'
+
+type Login =  {
+  userName: string,
+  passWord: string,
+}
+
+const Register = ({ navigation }: any) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const checkPasswordMatch = () => {
-    // check if input matches state password, show warning otherwise
+  const [match, setMatch] = useState(false)
+  const [flag, setFlag] = useState(false)
+  const [nameFlag, setNameFlag] = useState(false)
+
+  const checkPasswordMatch = (text: string) => {
+    // by defaul from first input passwords do not match
+    setFlag(true)
+
+    if (password===text) {
+      // console.log("match")
+      setMatch(true)
+      setFlag(false)
+    } else {
+      // console.log("mismatch")
+      setMatch(false)
+    }
   }
 
-   const navigateToScreen = (screenName, params) => {
-      navigation.navigate(screenName, params);
-   };
+  const navigateToScreen = (screenName: any) => {
+    navigation.navigate(screenName);
+  };
+
+  const validateRegisterForm = () => {
+    if (email.length>0 && password.length>0) {
+      setNameFlag(false)
+      return(true)
+    } else {
+      setNameFlag(true)
+      return(false)
+    }
+  }
+
+  const registerLogin = async () => {
+    if (match === true && validateRegisterForm())  {
+      const login = {
+        userName: email,
+        passWord: password
+      }
+  
+      try {
+        const db = await connectToDatabase()
+        addLogin(db, login)
+        // console.log(await getLogins(db))
+      } catch (error) {
+        console.error(error)
+      }
+      navigateToScreen('Courses')
+    } else {
+      console.log("password did not match or input failed validation")
+    } 
+  }
 
   return (
     <View style={styles.Container}>
@@ -61,13 +121,27 @@ const Register = ({ navigation }) => {
             placeholder='Repeat'
             placeholderTextColor='grey'
             secureTextEntry
-            onChangeText={checkPasswordMatch}
+            onChangeText={text => checkPasswordMatch(text)}
           />
         </View>
+        {nameFlag? 
+        <View style={styles.flagContainer}>
+          <Text style={styles.flagText}>Username cannot be empty</Text>
+        </View>
+        :
+        ""
+        }
+        {flag? 
+        <View style={styles.flagContainer}>
+          <Text style={styles.flagText}>Passwords do not match</Text>
+        </View>
+        :
+        ""
+        }
         <View style={styles.InputContainer}>
           <TouchableOpacity 
             style={styles.LoginButton}
-            onPress={()=> navigateToScreen('Courses')}
+            onPress={()=> registerLogin()}
           >
             <Text style={{ color:'black' }}>Register</Text>
           </TouchableOpacity>
@@ -167,17 +241,19 @@ const styles = StyleSheet.create({
   BackgroundImage: {
     width: 300,
     height: 300,
-    // position: 'absolute',
-    // top: 0,
-    // bottom: 0,
-    // left: 0,
-    // right: 0
   },
   LoginContainer: {
     flexDirection: 'row',
     gap: 5,
     justifyContent: 'center',
     paddingTop: 10
+  },
+  flagContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  flagText: {
+    color: 'red'
   }
 });
 

@@ -1,18 +1,66 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image, ImageBackground} from 'react-native';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import Courses from './Courses';
 import Register from './Register';
 import HelpScreen from './HelpScreen'
 
-const Login = ({ navigation }) => {
+import {
+  connectToDatabase,
+  createTables,
+  getTableNames,
+  removeTable,
+  addLogin,
+  getLogins,
+  updateLogin,
+  deleteLogin,
+} from '../db/db'
+
+const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const [flag, setFlag] = useState(false)
 
-   const navigateToScreen = (screenName, params) => {
-      navigation.navigate(screenName, params);
-   };
+  const navigateToScreen = (screenName: any) => {
+    navigation.navigate(screenName);
+  };
+
+   const validateLoginForm = () => {
+    if (email.length>0 && password.length>0) {
+      return(true)
+    } else {
+      return(false)
+    }
+   }
+
+   const registerLogin = async () => {
+    if (validateLoginForm())  {
+      const login = {
+        userName: email,
+        passWord: password
+      }
+      try {
+        const db = await connectToDatabase()
+        const logins = await getLogins(db)
+
+        logins.some((login) => {
+          if (login.userName===email && login.passWord===password) {
+            setFlag(false)
+            navigateToScreen('Courses')
+            // to break from loop early
+            return(2)
+          } else {
+            setFlag(true)
+          }
+        })
+      } catch (error) {
+        console.error(error)
+      }
+    } else {
+      console.log("Invalid Input")
+    } 
+  }
 
   return (
     <View style={styles.Container}>
@@ -48,10 +96,17 @@ const Login = ({ navigation }) => {
             onChangeText={text =>setPassword(text)}
           />
         </View>
+        {flag? 
+        <View style={styles.flagContainer}>
+          <Text style={styles.flagText}>Username or Password incorrect</Text>
+        </View>
+        :
+        ""
+        }
         <View style={styles.InputContainer}>
           <TouchableOpacity 
             style={styles.LoginButton}
-            onPress={()=> navigateToScreen('Courses')}
+            onPress={()=> registerLogin()}
           >
             <Text style={{ color:'black' }}>Login</Text>
           </TouchableOpacity>
@@ -151,17 +206,19 @@ const styles = StyleSheet.create({
   BackgroundImage: {
     width: 400,
     height: 400,
-    // position: 'absolute',
-    // top: 0,
-    // bottom: 0,
-    // left: 0,
-    // right: 0
   },
   RegisterContainer: {
     flexDirection: 'row',
     gap: 5,
     justifyContent: 'center',
     paddingTop: 10
+  },
+  flagContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  flagText: {
+    color: 'red'
   }
 });
 
