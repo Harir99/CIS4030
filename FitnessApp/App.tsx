@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, SafeAreaView } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -13,19 +13,43 @@ import HelpScreen from './src/screens/HelpScreen'
 import ExerciseTimer from './src/screens/ExerciseTimer'
 import Finished from './src/screens/Finished'
 
+import {
+  connectToDatabase,
+  createTables,
+  getTableNames,
+  removeTable,
+  addLogin,
+  getLogins,
+  updateLogin,
+  deleteLogin,
+} from './src/db/db'
+
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-
-const [likedItems, setLikedItems] = useState([]);
-
-  const handleToggleLike = (item) => {
+  const [likedItems, setLikedItems] = useState([]);
+  
+  const handleToggleLike = (item: any) => {
     if (likedItems.includes(item)) {
       setLikedItems(likedItems.filter((likedItem) => likedItem !== item));
     } else {
       setLikedItems([...likedItems, item]);
     }
   };
+
+  const loadData = useCallback(async () => {
+    try {
+      const db = await connectToDatabase()
+      await createTables(db)
+    } catch (error) {
+      console.error(error)
+    }
+  }, [])
+  
+  useEffect(() => {
+    loadData()
+  }, [loadData])
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
@@ -67,7 +91,7 @@ const [likedItems, setLikedItems] = useState([]);
   );
 };
 
-const getTitle = (route) => {
+const getTitle = (route: any) => {
   if (route.name === 'Exercises') {
     return 'Course Details';
   }
@@ -76,7 +100,7 @@ const getTitle = (route) => {
 
 const screensWithBackButton = ['Exercises', 'HelpScreen']; // Add other screen names as needed
 
-const shouldShowBackButton = (route) => {
+const shouldShowBackButton = (route: any) => {
   return screensWithBackButton.includes(route.name);
 };
 
