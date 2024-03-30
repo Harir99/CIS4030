@@ -222,9 +222,9 @@
         },
         {
           "id": "exercise3",
-          "name": "https://images.everydayhealth.com/images/healthy-living/fitness/walking-workouts-myths-and-facts-1440x810.jpg?sfvrsn=9caa86b_1",
+          "name": "Walking",
           "duration": "10 minutes",
-          "imageUrl": "url_to_walking_meditation_video.mp4"
+          "imageUrl": "https://images.everydayhealth.com/images/healthy-living/fitness/walking-workouts-myths-and-facts-1440x810.jpg?sfvrsn=9caa86b_1"
         }
       ]
     }
