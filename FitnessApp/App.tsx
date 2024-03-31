@@ -22,7 +22,10 @@ import {
   getLogins,
   updateLogin,
   deleteLogin,
+  updateCourseData,
+  getCoursesData
 } from './src/db/db'
+import data from './src/assets/data/courses_list.json';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,7 +43,17 @@ const App = () => {
   const loadData = useCallback(async () => {
     try {
       const db = await connectToDatabase()
+      removeTable(db, "Courses")
       await createTables(db)
+      updateCourseData(db, JSON.stringify(data)).then(
+        // do nothing
+        (result) => { 
+          // console.log(result[0]); 
+        },
+        (error) => { 
+          // console.log(error); 
+        }
+      )
     } catch (error) {
       console.error(error)
     }

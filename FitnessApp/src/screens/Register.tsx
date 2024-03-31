@@ -94,6 +94,7 @@ const Register = ({ navigation }: any) => {
             placeholder='Username'
             placeholderTextColor='grey'
             onChangeText={text =>setEmail(text)}
+            style={{ color: "black" }}
           />
         </View>
         <View style={styles.PassForm}>
@@ -108,6 +109,7 @@ const Register = ({ navigation }: any) => {
             placeholderTextColor='grey'
             secureTextEntry
             onChangeText={text =>setPassword(text)}
+            style={{ color: "black" }}
           />
         </View>
         <View style={styles.PassForm}>
@@ -122,6 +124,7 @@ const Register = ({ navigation }: any) => {
             placeholderTextColor='grey'
             secureTextEntry
             onChangeText={text => checkPasswordMatch(text)}
+            style={{ color: "black" }}
           />
         </View>
         {nameFlag? 

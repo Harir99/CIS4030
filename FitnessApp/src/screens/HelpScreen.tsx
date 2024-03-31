@@ -36,14 +36,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
   },
   title: {
-    fontSize: 23,
+    fontSize: 21,
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 20,
     marginLeft: 80
   },
   description: {
-    fontSize: 18,
+    fontSize: 17,
     color: '#666',
     marginBottom: 30,
   },
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     marginTop: 18
   },
   step: {
-    fontSize: 18,
+    fontSize: 17,
     color: '#666',
     marginLeft: 20,
   },
