@@ -1,35 +1,77 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, ImageBackground, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card } from 'react-native-elements';
 import data from '../assets/data/courses_list.json';
 
 import FiltersUI from "../components/FiltersUI"
 
-const Courses = ({ navigation }) => {
+import {
+  connectToDatabase,
+  createTables,
+  getTableNames,
+  removeTable,
+  addLogin,
+  getLogins,
+  updateLogin,
+  deleteLogin,
+  updateCourseData,
+  getCoursesData
+} from '../db/db'
 
+const Courses = ({ navigation }) => {
   const [selectedDifficulty, setSelectedDifficulty] = useState(null);
   const [selectedDuration, setSelectedDuration] = useState(null);
   const [selectedCourseType, setSelectedCourseType] = useState(null);
   const [selectedFocusArea, setSelectedFocusArea] = useState(null);
-  const [filteredData, setFilteredData] = useState(data.courses);
+  const [filteredData, setFilteredData] = useState(null);
+  
+  useEffect(() => {
+    // const filterCourses = () => {
+    //   return data.courses.filter(course => {
+    //     const duration = parseInt(course.totalDuration.split(' ')[0], 10);
+    //     return (
+    //       (!selectedDifficulty || course.difficulty === selectedDifficulty) &&
+    //       (!selectedDuration ||
+    //         (selectedDuration === 'Short (0-15 minutes)' && duration <= 15) ||
+    //         (selectedDuration === 'Medium (16-30 minutes)' && duration > 15 && duration <= 30) ||
+    //         (selectedDuration === 'Long (31 minutes and above)' && duration > 30)) &&
+    //       (!selectedCourseType || course.courseType === selectedCourseType) &&
+    //       (!selectedFocusArea || course.focusArea.includes(selectedFocusArea))
+    //     )
+    //   })
+    // }
+    // setFilteredData(filterCourses());
 
-    useEffect(() => {
-        const filterCourses = () => {
-          return data.courses.filter(course => {
-            const duration = parseInt(course.totalDuration.split(' ')[0], 10);
-            return (
-              (!selectedDifficulty || course.difficulty === selectedDifficulty) &&
-              (!selectedDuration ||
-                (selectedDuration === 'Short (0-15 minutes)' && duration <= 15) ||
-                (selectedDuration === 'Medium (16-30 minutes)' && duration > 15 && duration <= 30) ||
-                (selectedDuration === 'Long (31 minutes and above)' && duration > 30)) &&
-              (!selectedCourseType || course.courseType === selectedCourseType) &&
-              (!selectedFocusArea || course.focusArea.includes(selectedFocusArea))
-            );
-          });
-        };
-
-        setFilteredData(filterCourses());
+    const getCourses = async () => {
+      try {
+        const db = await connectToDatabase()
+        await getCoursesData(db).then(
+          (result: any) => { 
+            // console.log(JSON.parse(result[0].coursesData).courses)
+            const filteredCourses = JSON.parse(result[0].coursesData).courses.filter(course => {
+              console.log(course.name)
+              const duration = parseInt(course.totalDuration.split(' ')[0], 10);
+              return (
+                (!selectedDifficulty || course.difficulty === selectedDifficulty) &&
+                (!selectedDuration ||
+                  (selectedDuration === 'Short (0-15 minutes)' && duration <= 15) ||
+                  (selectedDuration === 'Medium (16-30 minutes)' && duration > 15 && duration <= 30) ||
+                  (selectedDuration === 'Long (31 minutes and above)' && duration > 30)) &&
+                (!selectedCourseType || course.courseType === selectedCourseType) &&
+                (!selectedFocusArea || course.focusArea.includes(selectedFocusArea))
+              )
+            })
+            setFilteredData(filteredCourses)
+          },
+          (error) => { 
+            console.log(error) 
+          }
+        )
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    getCourses()
   }, [selectedDifficulty, selectedDuration, selectedCourseType, selectedFocusArea]);
 
   const renderItem = ({ item }) => (

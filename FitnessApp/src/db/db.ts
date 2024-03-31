@@ -29,8 +29,16 @@ export const createTables = async (db: any) => {
       passWord TEXT
    )
   `
+
+  const coursesDataQuery = `
+    CREATE TABLE IF NOT EXISTS Courses (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        coursesData TEXT
+    )
+  `
   try {
     await db.executeSql(loginQuery)
+    await db.executeSql(coursesDataQuery)
   } catch (error) {
     console.error(error)
     throw Error(`Failed to create tables`)
@@ -69,7 +77,7 @@ export const addLogin = async (db: any, login: Login) => {
   const insertQuery = `
    INSERT INTO Logins (userName, passWord)
    VALUES (?, ?)
- `
+  `
   const values = [
     login.userName,
     login.passWord,
@@ -132,3 +140,34 @@ export const deleteLogin = async (db: any, login: Login) => {
     throw Error("Failed to remove contact")
   }
 }
+
+export const updateCourseData = async (db: any, courses: string) => {
+  const insertQuery = `
+   INSERT INTO Courses (coursesData)
+   VALUES (?)
+  `
+  const values = [courses]
+  try {
+    return db.executeSql(insertQuery, values)
+  } catch (error) {
+    console.error(error)
+    throw Error("Failed to add contact")
+  }
+}
+
+export const getCoursesData = async (db: any): Promise<string[]> => {
+  try {
+    const res: string[] = []
+    const results = await db.executeSql("SELECT * FROM Courses")
+    results?.forEach((result: any) => {
+      for (let index = 0; index < result.rows.length; index++) {
+        res.push(result.rows.item(index))
+      }
+    })
+    return res
+  } catch (error) {
+    console.error(error)
+    throw Error("Failed to get Courses from database")
+  }
+}
+
